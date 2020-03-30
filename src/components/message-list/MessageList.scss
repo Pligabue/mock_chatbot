@@ -1,3 +1,38 @@
 .message-list {
     flex-grow: 1;
+    background-color: rgb(230, 230, 230);
+    margin: 1rem 5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.message-container {
+    margin: 0.5rem;
+}
+
+.user-message-container {
+    text-align: right;
+}
+
+.bot-message-container {
+    text-align: left;
+}
+
+.message {
+    display: inline-block;
+    max-width: 70%;
+    padding: 1rem;
+    margin: 0 2rem;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: white;
+    margin-right: 1rem;
+}
+
+.bot-message {
+    background-color: lightblue;
+    margin-left: 1rem;
 }
