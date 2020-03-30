@@ -1,0 +1,28 @@
+.message-form {
+    display: flex;
+    padding: 1rem 2rem;
+}
+
+.message-input {
+    flex-grow: 1;
+    padding: 1rem 2rem;
+    margin-right: 1rem;
+}
+
+.message-button {
+    padding: 1rem 2rem;
+    background-color: navy;
+    color: whitesmoke;
+    border: 1px solid navy;
+    &:hover {
+        background-color: whitesmoke;
+        color: navy;
+    }
+    &:active {
+        background-color: navy;
+        color: whitesmoke;
+    }
+    &:focus {
+        outline: none;
+    }
+}
