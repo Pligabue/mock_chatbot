@@ -1,8 +1,12 @@
+.message-list-container {
+    margin: 1rem 5rem;
+    padding: 1rem 0;
+    background-color: rgb(230, 230, 230);
+    overflow-y: auto;
+}
+
 .message-list {
     flex-grow: 1;
-    background-color: rgb(230, 230, 230);
-    margin: 1rem 5rem;
-    overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
 }
