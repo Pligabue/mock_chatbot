@@ -6,6 +6,8 @@ export default class MessageInput extends Component {
 
   constructor(props) {
     super(props);
+    this.handleChange = this.props.handleMessageInput;
+    this.handleSubmit = this.props.handleMessageSubmit;
     this.state = {
       message: "",
       loggedIn: props.loggedIn
@@ -14,16 +16,6 @@ export default class MessageInput extends Component {
 
   componentDidMount() {
     
-  }
-  
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault()
   }
 
   render() {
