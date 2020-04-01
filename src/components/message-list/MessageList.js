@@ -44,11 +44,9 @@ export default class MessageList extends Component {
 
   render() {
     return (
-      <div className="message-list-container">
-        <div className="message-list"> 
-          {this.state.newMessages}
-          {this.state.messages}
-        </div>
+      <div className="message-list"> 
+        {this.state.newMessages}
+        {this.state.messages}
       </div>
     );
   }
