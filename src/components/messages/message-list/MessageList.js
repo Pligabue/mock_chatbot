@@ -29,6 +29,11 @@ export default class MessageList extends Component {
     }
   }
   
+  goToTheBottom = () => {
+    let messageList = document.getElementById("message-list");
+    messageList.scrollTop = messageList.scrollHeight;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.newMessages !== this.props.newMessages) {
       let newMessages = []
@@ -42,12 +47,13 @@ export default class MessageList extends Component {
       this.setState({
         newMessages: newMessages
       })
+      this.goToTheBottom();
     }
   }
 
   render() {
     return (
-      <Box display="flex" flexDirection="column-reverse" overflow="auto" bgcolor="background.messages" p={2} mb={2}> 
+      <Box id="message-list" display="flex" flexDirection="column-reverse" overflow="auto" bgcolor="background.messages" p={2} mb={2}> 
         {this.state.newMessages}
         {this.state.messages}
       </Box>
