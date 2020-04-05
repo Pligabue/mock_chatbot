@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
-import { Drawer, List, ListItem, ListItemText, withStyles, Typography, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemText, Typography, Divider, ListItemIcon, Icon } from '@material-ui/core';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import { Link } from 'react-router-dom';
-
-const White = withStyles({
-  paper: {
-    position: "static",
-  }
-})(Drawer)
 
 export default class Sidebar extends Component {
   render() {
@@ -19,19 +16,22 @@ export default class Sidebar extends Component {
         <List color="textPrimary">
           <Link to="/login" style={{ textDecoration: 'none', color: "inherit" }}>
             <ListItem button>
-              <ListItemText style={{ color: "white" }}>Login</ListItemText>
+              <ListItemIcon><AccountCircleOutlinedIcon color="secondary" /></ListItemIcon>
+              <ListItemText primary={<Typography color="textPrimary">Login</Typography>} />
             </ListItem>
           </Link>
           <Divider />
           <Link to="/signup" style={{ textDecoration: 'none', color: "inherit" }}>
             <ListItem button>
-              <ListItemText style={{ color: "white" }}>Sign Up</ListItemText>
+              <ListItemIcon><AssignmentOutlinedIcon color="secondary" /></ListItemIcon>
+              <ListItemText primary={<Typography color="textPrimary">Sign Up</Typography>} />
             </ListItem>
           </Link>
           <Divider />
           <Link to="/messages" style={{ textDecoration: 'none', color: "inherit" }}>
             <ListItem button>
-              <ListItemText style={{ color: "white" }}>Messages</ListItemText>
+              <ListItemIcon><CommentOutlinedIcon color="secondary" /></ListItemIcon>
+              <ListItemText primary={<Typography color="textPrimary">Messages</Typography>} />
             </ListItem>
           </Link>
         </List>
