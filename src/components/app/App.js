@@ -15,7 +15,9 @@ import Sidebar from '../sidebar/Sidebar';
 const theme = createMuiTheme({
   palette: {
     primary: indigo,
-    secondary: red,
+    secondary: {
+      main: "#eceff1"
+    },
     background: {
       messages: indigo[50],
       sidebar: indigo[900],
@@ -23,7 +25,8 @@ const theme = createMuiTheme({
       userMessage: indigo[800]
     },
     text: {
-      primary: indigo[50]
+      primary: indigo[50],
+      secondary: indigo[200]
     }
   },
   status: {
