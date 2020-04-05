@@ -17,6 +17,13 @@ export default class Messages extends Component {
     }
   }
   
+  cleanInput = () => {
+    this.setState({
+      newMessageContent: "",
+      newMessageOrigin: "user",
+      newMessageTimestamp: null,
+    })
+  }
 
   handleMessageInput = (e) => {
     this.setState({
@@ -27,19 +34,22 @@ export default class Messages extends Component {
   handleMessageSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
-
+    
     let today = new Date();
     let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date+' '+time;
 
-    this.setState({
-      newMessages: [...this.state.newMessages, {
-        content: this.state.newMessageContent,
-        origin: this.state.newMessageOrigin,
-        timestamp: dateTime
-      }]
-    })
+    if (this.state.newMessageContent) {
+      this.setState({
+        newMessages: [...this.state.newMessages, {
+          content: this.state.newMessageContent,
+          origin: this.state.newMessageOrigin,
+          timestamp: dateTime
+        }]
+      })
+      this.cleanInput()
+    }
   }
 
   render() {
