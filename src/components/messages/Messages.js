@@ -4,6 +4,7 @@ import "./Messages.scss"
 
 import MessageList from "./message-list/MessageList"
 import MessageInput from "./message-input/MessageInput"
+import Box from '@material-ui/core/Box';
 
 export default class Messages extends Component {
 
@@ -54,10 +55,10 @@ export default class Messages extends Component {
 
   render() {
     return (
-      <div className="messages"> 
+      <Box display="flex" flexDirection="column" boxSizing="border-box" height="100%" overflow="hidden" p={3}> 
         <MessageList newMessages={this.state.newMessages} />
         <MessageInput handleMessageInput={this.handleMessageInput} handleMessageSubmit={this.handleMessageSubmit} />
-      </div>
+      </Box>
     );
   }
 }
