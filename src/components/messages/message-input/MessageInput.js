@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 import "./MessageInput.scss"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
+import Icon from '@material-ui/core/Icon';
+import Box from '@material-ui/core/Box';
 
 export default class MessageInput extends Component {
 
@@ -20,9 +24,11 @@ export default class MessageInput extends Component {
 
   render() {
     return (
-      <form onChange={this.handleChange} onSubmit={this.handleSubmit} className="message-form">
-        <input name="message" placeholder="Enter your message here" className="message-input" />
-        <button className="message-button">Send</button>
+      <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+        <Box display="flex">
+          <Box flexGrow={1} mr={2}><TextField fullWidth inputProps={{ style: { color: "black" } }} /></Box>
+          <Button type="submit" variant="contained" color="primary" endIcon={<Icon>send</Icon>}>SEND</Button>
+        </Box>
       </form>
     );
   }
