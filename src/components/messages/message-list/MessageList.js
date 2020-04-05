@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import "./MessageList.scss"
 
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+
 export default class MessageList extends Component {
 
   constructor(props) {
@@ -44,10 +47,10 @@ export default class MessageList extends Component {
 
   render() {
     return (
-      <div className="message-list"> 
+      <Box display="flex" flexDirection="column-reverse" overflow="auto" bgcolor="background.messages" p={2} mb={2}> 
         {this.state.newMessages}
         {this.state.messages}
-      </div>
+      </Box>
     );
   }
 }
@@ -70,26 +73,21 @@ function Message(props) {
     throw new Error("Origin can only be 'user' or 'bot'.")
   }
   let content = props.children
- 
-  let containerClass = "message-container "
-  let messageClass = "message "
-
-  switch (origin) {
-    case "user":
-      containerClass += "user-message-container"
-      messageClass += "user-message" 
-      break;
-    case "bot":
-      containerClass += "bot-message-container"
-      messageClass += "bot-message" 
-      break;
-    default:
-      break;
-  }
-  
+   
   return (
-    <div className={containerClass}>
-      <p className={messageClass}>{content}</p>
-    </div>
+    <Box 
+      textAlign={origin === "user" ? "right" : "left"}
+      pt={2}
+    >
+      <Box
+        display="inline-block"
+        maxWidth="70%"
+        bgcolor={origin === "user" ? "primary.light" : "primary.dark"}
+        p={2}
+        borderRadius={4}
+      >
+        <Typography color="textPrimary" component="p">{content}</Typography>
+      </Box>
+    </Box>
   )
 }
