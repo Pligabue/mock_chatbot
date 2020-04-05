@@ -6,13 +6,32 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Messages from '../messages/Messages';
 import Footer from '../footer/Footer';
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: indigo,
+    secondary: red,
+    background: {
+      messages: indigo[50],
+      sidebar: indigo[900],
+      botMessage: indigo[900],
+      userMessage: indigo[800]
+    },
+    text: {
+      primary: indigo[50]
+    }
+  },
+  status: {
+    danger: 'orange',
+  }
+});
 export default class App extends Component {
 
   render() {        
     return (
       <Router>
-        <div className="main-section">
-          <Header />
+        <ThemeProvider theme={theme}>
             <Switch>
             <Route path="/login">
               <h1>Login</h1>
@@ -27,8 +46,7 @@ export default class App extends Component {
               <h1>Home</h1>
             </Route>
           </Switch>
-        </div>
-        <Footer />
+        </ThemeProvider>
       </Router>
     );
   }
