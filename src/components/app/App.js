@@ -9,8 +9,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import red from '@material-ui/core/colors/red';
 import Sidebar from '../sidebar/Sidebar';
-import LoginForm from '../form/login-form/LoginForm';
-import SignUpForm from '../form/sign-up-form/SignUpForm';
+import LoginForm from '../forms/login-form/LoginForm';
+import SignUpForm from '../forms/sign-up-form/SignUpForm';
 
 
 const theme = createMuiTheme({
