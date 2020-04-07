@@ -11,6 +11,7 @@ import red from '@material-ui/core/colors/red';
 import Sidebar from '../sidebar/Sidebar';
 import LoginForm from '../forms/login-form/LoginForm';
 import SignUpForm from '../forms/sign-up-form/SignUpForm';
+import Home from '../home/Home';
 
 
 const theme = createMuiTheme({
@@ -54,7 +55,7 @@ export default class App extends Component {
                   <Messages />
                 </Route>
                 <Route path="/">
-                  <h1>Home</h1>
+                  <Home />
                 </Route>
               </Switch>
             </Box>
