@@ -9,6 +9,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import red from '@material-ui/core/colors/red';
 import Sidebar from '../sidebar/Sidebar';
+import LoginForm from '../form/login-form/LoginForm';
+import SignUpForm from '../form/sign-up-form/SignUpForm';
 
 
 const theme = createMuiTheme({
@@ -40,20 +42,22 @@ export default class App extends Component {
         <ThemeProvider theme={theme}>
           <Box display="flex" flexDirection="row" height="100%">
             <Sidebar />
-            <Switch>
-              <Route path="/login">
-                <h1>Login</h1>
-              </Route>
-              <Route path="/signup">
-                <h1>Sign Up</h1>
-              </Route>
-              <Route path="/messages">
-                <Messages />
-              </Route>
-              <Route path="/">
-                <h1>Home</h1>
-              </Route>
-            </Switch>
+            <Box flexGrow={1} display="flex" justifyContent="center" alignItems="center">
+              <Switch>
+                <Route path="/login">
+                  <LoginForm />
+                </Route>
+                <Route path="/signup">
+                  <SignUpForm />
+                </Route>
+                <Route path="/messages">
+                  <Messages />
+                </Route>
+                <Route path="/">
+                  <h1>Home</h1>
+                </Route>
+              </Switch>
+            </Box>
           </Box>
         </ThemeProvider>
       </Router>
