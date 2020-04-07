@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import "./Messages.scss"
-
 import MessageList from "./message-list/MessageList"
 import MessageInput from "./message-input/MessageInput"
 import Box from '@material-ui/core/Box';
