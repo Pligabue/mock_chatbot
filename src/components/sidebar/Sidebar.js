@@ -14,28 +14,23 @@ export default class Sidebar extends Component {
           <Typography variant="h5" noWrap color="textPrimary" style={{ padding: "2rem" }}>Chatbots Inc.</Typography>
         </Link>
         <List color="textPrimary">
-          <Link to="/login" style={{ textDecoration: 'none', color: "inherit" }}>
-            <ListItem button>
-              <ListItemIcon><AccountCircleOutlinedIcon color="secondary" /></ListItemIcon>
-              <ListItemText primary={<Typography color="textPrimary">Login</Typography>} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/signup" style={{ textDecoration: 'none', color: "inherit" }}>
-            <ListItem button>
-              <ListItemIcon><AssignmentOutlinedIcon color="secondary" /></ListItemIcon>
-              <ListItemText primary={<Typography color="textPrimary">Sign Up</Typography>} />
-            </ListItem>
-          </Link>
-          <Divider />
-          <Link to="/messages" style={{ textDecoration: 'none', color: "inherit" }}>
-            <ListItem button>
-              <ListItemIcon><CommentOutlinedIcon color="secondary" /></ListItemIcon>
-              <ListItemText primary={<Typography color="textPrimary">Messages</Typography>} />
-            </ListItem>
-          </Link>
+          <SidebarItem to="/login" text="Login"><AccountCircleOutlinedIcon color="secondary" /></SidebarItem>
+          <SidebarItem to="/signup" text="Sign Up"><AssignmentOutlinedIcon color="secondary" /></SidebarItem>
+          <SidebarItem to="/messages" text="Messages"><CommentOutlinedIcon color="secondary" /></SidebarItem>
         </List>
       </Box>
     );
   }
+}
+
+function SidebarItem(props) {
+  return (
+    <Link to={props.to} style={{ textDecoration: 'none', color: "inherit" }}>
+      <ListItem button>
+        <ListItemIcon>{props.children}</ListItemIcon>
+        <ListItemText primary={<Typography color="textPrimary">{props.text}</Typography>} />
+      </ListItem>
+      <Divider />
+    </Link>
+  )
 }
