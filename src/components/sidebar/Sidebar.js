@@ -32,7 +32,7 @@ export default class Sidebar extends Component {
           <IconButton onClick={this.toggle}><ArrowForwardIosIcon color="secondary" /></IconButton>
         </Box>
         <List color="textPrimary">
-          <SidebarItem to="/login" text="Login" open={this.state.open}><AccountCircleOutlinedIcon color="secondary" /></SidebarItem>
+          <SidebarItem to="/login" text="Log In" open={this.state.open}><AccountCircleOutlinedIcon color="secondary" /></SidebarItem>
           <SidebarItem to="/signup" text="Sign Up" open={this.state.open}><AssignmentOutlinedIcon color="secondary" /></SidebarItem>
           <SidebarItem to="/messages" text="Messages" open={this.state.open}><CommentOutlinedIcon color="secondary" /></SidebarItem>
         </List>
