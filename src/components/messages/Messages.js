@@ -11,8 +11,13 @@ export default class Messages extends Component {
     this.state = {
       newMessageContent: "",
       newMessageOrigin: "user",
-      newMessageTimestamp: null,
-      newMessages: []
+      newMessageDate: null,
+      messages: [
+        { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
+        { origin: "bot", content: "Bot message", date: "2020-04-23T11:06Z"},
+        { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
+        { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
+      ]
     }
   }
   
@@ -20,7 +25,7 @@ export default class Messages extends Component {
     this.setState({
       newMessageContent: "",
       newMessageOrigin: "user",
-      newMessageTimestamp: null,
+      newMessageDate: null,
     })
   }
 
@@ -33,18 +38,13 @@ export default class Messages extends Component {
   handleMessageSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
-    
-    let today = new Date();
-    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    let dateTime = date+' '+time;
 
     if (this.state.newMessageContent) {
       this.setState({
-        newMessages: [...this.state.newMessages, {
+        messages: [...this.state.messages, {
           content: this.state.newMessageContent,
           origin: this.state.newMessageOrigin,
-          timestamp: dateTime
+          date: new Date().toISOString()
         }]
       })
       this.cleanInput()
@@ -53,8 +53,8 @@ export default class Messages extends Component {
 
   render() {
     return (
-      <Box display="flex" flexDirection="column" boxSizing="border-box" height="100%" overflow="hidden" p={3}> 
-        <MessageList newMessages={this.state.newMessages} />
+      <Box height="100%" width="100%" display="flex" flexDirection="column" boxSizing="border-box" p={3}> 
+        <MessageList messages={this.state.messages} />
         <MessageInput handleMessageInput={this.handleMessageInput} handleMessageSubmit={this.handleMessageSubmit} />
       </Box>
     );

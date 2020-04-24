@@ -6,28 +6,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 export default class MessageList extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [
-        <UserMessage key={1}>User Message</UserMessage>,
-        <BotMessage key={2}>Bot Message</BotMessage>,
-        <BotMessage key={3}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate tempus eleifend. Praesent commodo odio eu purus tincidunt sollicitudin. Fusce rutrum nisl et erat maximus fringilla. Maecenas dapibus dolor ut eros tempus, sit amet tincidunt orci laoreet. Duis quis massa a odio vestibulum rhoncus at non ex. Nam nec nulla metus. Proin sollicitudin quam nec sagittis elementum. Donec ultricies dui in justo vulputate, eget suscipit nibh ornare. Nulla ornare volutpat dictum. Nunc aliquam sagittis ligula, ut imperdiet lectus consectetur ac. Curabitur id orci quis ante mattis consequat. Ut placerat congue magna nec ornare. Praesent maximus libero enim. Maecenas risus dolor, auctor nec fermentum ac, gravida id nibh.
-        </BotMessage>,
-        <UserMessage key={4}>
-        Nunc finibus placerat arcu, ut dignissim felis volutpat a. Aenean sit amet efficitur velit, quis ultrices elit. Nullam accumsan elementum ipsum sit amet iaculis. Ut vitae eros mi. Phasellus ut leo iaculis, malesuada quam eu, sagittis nibh. Maecenas mollis eget lectus eget tristique. Proin tincidunt scelerisque lacinia. Aliquam interdum viverra quam, et pharetra justo sodales eu. Morbi quis porttitor lacus. Morbi ac varius velit, ut interdum ligula. Donec egestas felis nisi, vitae posuere arcu viverra pulvinar.
-        </UserMessage>,
-        <UserMessage key={5}>
-        Aenean nec tincidunt augue. Suspendisse nec magna sagittis nisi tincidunt convallis in a purus. Integer at justo quis sapien pharetra eleifend at ac odio. Etiam pretium, turpis sit amet finibus condimentum, elit arcu ullamcorper nulla, vel congue neque mauris efficitur nisl. Ut imperdiet sollicitudin est, a pellentesque lacus scelerisque ut. Nullam efficitur lectus eu nunc pretium, vitae mollis felis tincidunt. Nullam hendrerit, nunc et bibendum suscipit, mi purus tristique sem, eu euismod tellus purus mattis metus. Proin turpis nulla, efficitur a odio non, varius lobortis dui. Praesent blandit varius enim eu efficitur.
-        </UserMessage>,
-        <BotMessage key={6}>
-        Nunc ut porta ipsum. Nullam id sem eget purus eleifend venenatis. Quisque nisi magna, dictum eget imperdiet at, hendrerit vel magna. Sed pulvinar viverra sagittis. Curabitur ullamcorper sed neque at commodo. Phasellus consequat facilisis metus, sit amet placerat sapien tempor nec. Pellentesque in neque tempor, porttitor lorem in, mollis diam. Integer venenatis vel dui nec fermentum. Vestibulum at velit vel purus tincidunt euismod.
-        </BotMessage>
-      ]
-    }
-  }
   
   goToTheBottom = () => {
     let messageList = document.getElementById("message-list");
@@ -35,44 +13,34 @@ export default class MessageList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.newMessages !== this.props.newMessages) {
-      let newMessages = []
-      for (let message of this.props.newMessages) {
-        if (message.origin === "user") {
-          newMessages = [...newMessages, <UserMessage key={message.timestamp}>{message.content}</UserMessage>]
-        } else if (message.origin === "bot") {
-          newMessages = [...newMessages, <BotMessage key={message.timestamp}>{message.content}</BotMessage>]
-        }
-      }
-      this.setState({
-        newMessages: newMessages
-      })
+    if (prevProps.messages !== this.props.messages) {
       this.goToTheBottom();
     }
   }
 
   render() {
     return (
-      <Box id="message-list" display="flex" flexDirection="column-reverse" overflow="auto" bgcolor="background.messages" p={2} mb={2}> 
-        {this.state.newMessages}
-        {this.state.messages}
+      <Box 
+        id="message-list" 
+        flexGrow="1" 
+        display="flex" 
+        flexDirection="column" 
+        overflow="auto" 
+        bgcolor="background.messages" p={2} mb={2}
+      > 
+        {this.props.messages.map((message, index) => (
+          <Message key={index} origin={message.origin} date={message.date}>
+            {message.content}
+          </Message>
+        ))}
       </Box>
     );
   }
 }
 
-
-function UserMessage(props) {
-  return <Message origin="user">{props.children}</Message>
-}
-
-function BotMessage(props) {
-  return <Message origin="bot">{props.children}</Message>
-}
-
 function Message(props) {
 
-  let { origin } = props;
+  let { origin, date } = props;
   if (origin === undefined) {
     throw new Error("Missing 'origin' parameter.")
   } else if (origin !== "bot" && origin !== "user") {
@@ -87,12 +55,15 @@ function Message(props) {
     >
       <Box
         display="inline-block"
-        maxWidth="70%"
+        position="relative"
+        maxWidth={0.7}
         bgcolor={origin === "user" ? "primary.light" : "primary.dark"}
         p={2}
         borderRadius={4}
+        overflow="hidden"
       >
-        <Typography color="textPrimary" component="p">{content}</Typography>
+        <Typography color="textPrimary" component="p" style={{ wordBreak: "break-word" }}>{content}</Typography>
+        <span style={{ color: "white", position: "absolute", right: "0", bottom: "0", fontSize: "0.6rem", padding: "0.2rem" }}>{date}</span>
       </Box>
     </Box>
   )
