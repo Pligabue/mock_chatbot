@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from '../Form';
-import { TextField, Button, Box } from '@material-ui/core';
+import { TextField, Box } from '@material-ui/core';
 
 export default class LoginForm extends Component {
   render() {
