@@ -42,7 +42,7 @@ export default class App extends Component {
         <ThemeProvider theme={theme}>
           <Box display="flex" flexDirection="row" height="100%">
             <Sidebar />
-            <Box flexGrow={1} display="flex" justifyContent="center" alignItems="center">
+            <Box flex="1 1 auto" display="flex" justifyContent="center" alignItems="center" overflow="hidden">
               <Switch>
                 <Route path="/login">
                   <LoginForm />
