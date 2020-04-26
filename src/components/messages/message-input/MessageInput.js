@@ -26,7 +26,7 @@ export default class MessageInput extends Component {
     return (
       <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
         <Box display="flex">
-          <Box flexGrow={1} mr={2}><TextField fullWidth inputProps={{ style: { color: "black" } }} /></Box>
+          <Box flexGrow={1} mr={2}><TextField fullWidth inputProps={{ style: { color: "black" } }} disabled={!this.props.enabled} /></Box>
           <Button type="submit" variant="contained" color="primary" endIcon={<Icon>send</Icon>}>SEND</Button>
         </Box>
       </form>

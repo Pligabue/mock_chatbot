@@ -8,10 +8,10 @@ export default class Messages extends Component {
 
   constructor(props) {
     super(props);
+    this.websocket = null
     this.state = {
+      connected: false,
       newMessageContent: "",
-      newMessageOrigin: "user",
-      newMessageDate: null,
       messages: [
         { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
         { origin: "bot", content: "Bot message", date: "2020-04-23T11:06Z"},
@@ -21,12 +21,20 @@ export default class Messages extends Component {
     }
   }
   
-  cleanInput = () => {
-    this.setState({
-      newMessageContent: "",
-      newMessageOrigin: "user",
-      newMessageDate: null,
-    })
+  componentDidMount() {
+    this.websocket = new WebSocket("ws://localhost:6789")
+    this.websocket.onopen = () => { 
+      this.setState({ connected: true })
+      console.log("CONNECTED") 
+    }
+    this.websocket.onclose = () => {
+      this.setState({ connected: false })
+      console.log("DISCONNECTED") 
+    }
+    this.websocket.onmessage = (e) => {
+      let data = JSON.parse(e.data)
+      this.addMessage(data.content, data.origin, data.date)
+    }
   }
 
   handleMessageInput = (e) => {
@@ -40,13 +48,7 @@ export default class Messages extends Component {
     e.target.reset();
 
     if (this.state.newMessageContent) {
-      this.setState({
-        messages: [...this.state.messages, {
-          content: this.state.newMessageContent,
-          origin: this.state.newMessageOrigin,
-          date: new Date().toISOString()
-        }]
-      })
+      this.sendMessage()
       this.cleanInput()
     }
   }
@@ -55,8 +57,35 @@ export default class Messages extends Component {
     return (
       <Box height="100%" width="100%" display="flex" flexDirection="column" boxSizing="border-box" p={3}> 
         <MessageList messages={this.state.messages} />
-        <MessageInput handleMessageInput={this.handleMessageInput} handleMessageSubmit={this.handleMessageSubmit} />
+        <MessageInput handleMessageInput={this.handleMessageInput} handleMessageSubmit={this.handleMessageSubmit} enabled={this.state.connected} />
       </Box>
     );
+  }
+
+  sendMessage = () => {
+    this.websocket.send(JSON.stringify({
+      content: this.state.newMessageContent,
+      origin: "user",
+      date: new Date().toISOString()
+    }))
+    this.addMessage(this.state.newMessageContent, "user", new Date().toISOString())
+  }
+
+  addMessage = (content, origin, date) => {
+    this.setState({
+      messages: [...this.state.messages, {
+        content: content,
+        origin: origin,
+        date: date
+      }]
+    })
+  }
+
+  cleanInput = () => {
+    this.setState({
+      newMessageContent: "",
+      newMessageOrigin: "user",
+      newMessageDate: null,
+    })
   }
 }
