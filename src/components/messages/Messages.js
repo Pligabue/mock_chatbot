@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import MessageList from "./message-list/MessageList"
-import MessageInput from "./message-input/MessageInput"
+import MessageList from "./components/message-list/MessageList"
+import MessageInput from "./components/message-input/MessageInput"
 import Box from '@material-ui/core/Box';
 
 export default class Messages extends Component {
