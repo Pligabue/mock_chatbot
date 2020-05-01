@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Box from '@material-ui/core/Box';
 import { List, ListItem, ListItemText, Typography, Divider, ListItemIcon } from '@material-ui/core';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
@@ -6,8 +6,7 @@ import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import { Link } from 'react-router-dom';
 
-export default class Sidebar extends Component {
-  render() {
+export default function Sidebar(props) {
     return (
       <Box bgcolor="background.sidebar">
         <Link to="/" style={{ textDecoration: 'none', color: "inherit" }}>
@@ -19,8 +18,7 @@ export default class Sidebar extends Component {
           <SidebarItem to="/messages" text="Messages"><CommentOutlinedIcon color="secondary" /></SidebarItem>
         </List>
       </Box>
-    );
-  }
+    )
 }
 
 function SidebarItem(props) {
