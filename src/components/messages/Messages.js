@@ -10,7 +10,7 @@ export default class Messages extends Component {
   render() {
     return (
       <Box height="100%" width="100%" display="flex" flexDirection="column" boxSizing="border-box" p={3}> 
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.sortedMessages} />
         <MessageInput handleChange={this.handleMessageInput} handleSubmit={this.handleMessageSubmit} enabled={this.state.connected} />
       </Box>
     );
@@ -24,10 +24,11 @@ export default class Messages extends Component {
       newMessageContent: "",
       messages: [
         { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
-        { origin: "bot", content: "Bot message", date: "2020-04-23T11:06Z"},
-        { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
-        { origin: "user", content: "User message", date: "2020-04-23T11:05Z"},
-      ]
+        { origin: "bot", content: "Bot message", date: "2020-04-25T11:06Z"},
+        { origin: "user", content: "User message", date: "2020-04-24T11:05Z"},
+        { origin: "user", content: "User message", date: "2020-04-22T11:05Z"},
+      ],
+      sortedMessages: []
     }
   }
   
@@ -44,9 +45,9 @@ export default class Messages extends Component {
     this.websocket.onmessage = (e) => {
       let { content, origin, date } = JSON.parse(e.data)
       this.addNewMessage(content, origin, date)
-      this.addDateMessages()
+      this.sortMessages()
     }
-    this.addDateMessages()
+    this.sortMessages()
   }
 
   handleMessageInput = (e) => {
@@ -90,8 +91,16 @@ export default class Messages extends Component {
     })
   }
 
+  sortMessages = () => {
+    let { messages } = this.state
+    messages.sort((a, b) => (
+      new Date(a.date) < new Date(b.date) ? -1 : 1
+    ))
+    this.setState({ sortedMessages: messages })
+    this.addDateMessages()
+  }
+
   addDateMessages = () => {
-    this.sortMessages()
     let { messages } = this.state
     let datedMessages = []
     let datedIndex = 0
@@ -108,14 +117,6 @@ export default class Messages extends Component {
       }
       lastDate = message.date
     }
-    this.setState({ messages: datedMessages })
-  }
-
-  sortMessages = () => {
-    let { messages } = this.state
-    messages.sort((a, b) => (
-      new Date(a.date) < new Date(b.date) ? -1 : 1
-    ))
-    this.setState({ messages })
+    this.setState({ sortedMessages: datedMessages })
   }
 }
