@@ -1,19 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { formatTime } from '../../../../utils';
+import { sameDay, formatTime } from '../../../../utils';
 
 export default function MessageList(props) {
 
   const messageList = useRef(null)
+
+  const [sortedMessages, setSortedMessages] = useState([]);
+
+  const addDateMessages = (sortedMessages) => {
+    if (sortedMessages.length < 1) {
+      return
+    }
+    let datedMessages = []
+    let datedIndex = 0
+    let lastDate = sortedMessages[0].date
+    for (let i = 0; i < sortedMessages.length; i++) {
+      let message = sortedMessages[i]
+      if ((!sameDay(new Date(message.date), new Date(lastDate)) || i === 0) && message.origin !== "date") {
+        datedMessages[datedIndex++] = { origin: "date", content: formatTime.day(new Date(message.date)), date: message.date }
+      }
+      datedMessages[datedIndex++] = message
+      lastDate = message.date
+    }
+    return datedMessages
+  }
+
+  useEffect(() => {
+    let sortedMessages = [...props.messages]
+    sortedMessages.sort((a, b) => (
+        new Date(a.date) < new Date(b.date) ? -1 : 1
+    ))
+    sortedMessages = addDateMessages(sortedMessages)
+    setSortedMessages(sortedMessages)
+  }, [props.messages]);
 
   const goToTheBottom = () => {
     let node = messageList.current
     node.scrollTop = node.scrollHeight;
   }
 
-  useEffect(goToTheBottom, [props.messages]);
+  useEffect(() => {
+    goToTheBottom()
+  }, [sortedMessages]);
 
   return (
     <Box 
@@ -24,7 +55,7 @@ export default function MessageList(props) {
       overflow="auto" 
       bgcolor="background.messages" p={2} mb={2}
     > 
-      {props.messages.map((message, index) => (
+      {sortedMessages.map((message, index) => (
         <Message key={index} origin={message.origin} date={message.date}>
           {message.content}
         </Message>
